@@ -55,7 +55,7 @@ def read_genome(dir_path: str):
     temp_dir = os.getcwd()
 
     os.chdir(dir_path)
-    for root, dirs, files in os.walk(".", False):
+    for root, dirs, files in os.walk(dir_path, False):
         for file in files:
             if file.endswith('fna'):
                 genome_list.append(read_fna(file))
@@ -80,41 +80,3 @@ def encoder(sequence: str):
             raise ValueError('Invalid base label!')
 
     return coded_seq
-
-
-# Get reference result
-def get_ref(genome_list: list):
-    ref_list = []
-
-    with open('seq_id.map', 'r') as file:
-        while True:
-            line = file.readline()
-
-            if line:
-                gen = line.split(sep='\t')[-1][:-1]
-                for i in range(len(genome_list)):
-                    desp = genome_list[i][1].split('| ')[-1]
-                    if desp == gen:
-                        ref_list.append(i)
-            else:
-                break
-
-    return ref_list
-
-
-def accuracy(ref: list, res: list):
-    # ref: Reference result
-    # res: Calculated result
-    if len(ref) == len(res):
-        score: float = 0
-        for i in range(len(ref)):
-            if ref[i] == res[i]:
-                score += 1.0
-
-        return score / len(ref)
-    else:
-        raise Exception('The length of ref (%d) and res (%d) are not equal!' % (len(ref), len(res)))
-
-
-if __name__ == '__main__':
-    print(get_ref(read_genome('./genomes')))
