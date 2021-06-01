@@ -50,7 +50,7 @@ def read_fna(file_name: str):
 
 
 # Read all genome files with .fna suffix in 1 directory
-def read_genome(dir_path: str):
+def read_genome(dir_path: str = '.'):
     genome_list = []
     temp_dir = os.getcwd()
 
@@ -77,7 +77,7 @@ def encoder(sequence: str):
         elif char == 'G' or char == 'g':
             coded_seq += '3'
         else:
-            raise ValueError('Invalid base label!')
+            continue
 
     return coded_seq
 
@@ -102,7 +102,7 @@ def get_ref(genome_list: list):
     return ref_list
 
 
-def accuracy(ref: list, res: list):
+def accuracy(res: list, ref: list):
     # ref: Reference result
     # res: Calculated result
     if len(ref) == len(res):
@@ -111,10 +111,7 @@ def accuracy(ref: list, res: list):
             if ref[i] == res[i]:
                 score += 1.0
 
-        return score / len(ref)
+        return score / len(res)
     else:
         raise Exception('The length of ref (%d) and res (%d) are not equal!' % (len(ref), len(res)))
 
-
-if __name__ == '__main__':
-    print(get_ref(read_genome('./genomes')))

@@ -1,6 +1,7 @@
 import numpy as np
 from math import sqrt
-from main import read_fa, read_fna, read_genome, encoder
+from main import *
+from Bio.Seq import Seq
 
 
 # k: the length of k-mer.
@@ -44,35 +45,50 @@ def get_dist(list_1: list, list_2: list):
 
 
 # Assign a target sequence to a specific genome
-def genome_assign(genome_list: list, seq_list: list):
-    dist_list = []
+def genome_assign(genome_list: list, seq_list: list, k: int):
     gen_mat = []
+    res = [] # Store the index of corresponding genome.
 
-    # Get kmers in all genomes
+    # Get kmers in all genomes.
     for genome in genome_list:
-        gen = kmer(3, genome[0])
+        gen = kmer(k, genome[0])
         gen_mat.append(gen)
 
     with open('result', 'w+') as file:
         for i in range(len(seq_list)):
+            dist_list = []
+            dist_r_list = []  # Reverse sequence
+
             seq = seq_list[i]
-            seq_vec = kmer(3, seq)
+            seq_vec = kmer(k, seq)
+
+            # Reverse sequence
+            seq_r = str(Seq(seq).reverse_complement())
+            seq_r_vec = kmer(k, seq_r)
 
             for gen_vec in gen_mat:
                 dist_list.append(get_dist(seq_vec, gen_vec))
+                dist_r_list.append(get_dist(seq_r_vec, gen_vec))
+
+            if min(dist_list) <= min(dist_r_list):
                 min_pos = dist_list.index(min(dist_list))
+            else:
+                min_pos = dist_r_list.index(min(dist_r_list))
 
             # TODO: Determine a threshold of minimum distance
 
-            res = "%d\t" % i + genome_list[min_pos][1]
-            file.write(res)
+            res.append(min_pos)
+            res_str = "%d\t" % i + genome_list[min_pos][1] + "\n"
+            file.write(res_str)
 
-    # Return the description of the genome
-    # return genome_list[min_pos][1], dist_list
-    return
+    # Return the list of genome index.
+    return res
 
 
 if __name__ == '__main__':
-    ls = [read_fna("NC_015656.fna")]
-    # seq = 'AGGGGGCTGGCCCGTGACGAGCGGACCATCGTCGGCACCCCCGAGACGATCGCCGACCACATCCAGGAGTGG'
-    # print(genome_assign(ls, seq))
+    gen = read_genome("./genomes")
+    seq = read_fa("test.fa")
+    k = 7
+    result = genome_assign(gen, seq, k)
+    refer = get_ref(gen)
+    print(accuracy(result, refer))
