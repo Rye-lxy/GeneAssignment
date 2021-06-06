@@ -82,6 +82,24 @@ def encoder(sequence: str):
     return coded_seq
 
 
+#Code the sequence with integrs for GPU functions
+def encoder_int(sequence: str):
+    coded_seq = []
+    for char in sequence:
+        if char == 'A' or char == 'a':
+            coded_seq.append(int('0'))
+        elif char == 'G' or char == 'g':
+            coded_seq.append(int('1'))
+        elif char == 'C' or char == 'c':
+            coded_seq.append(int('2'))
+        elif char == 'T' or char == 't':
+            coded_seq.append(int('3'))
+        else: #code randomly with 0,1,2,3
+            coded_seq.append(random.randint(0,3))
+
+    return coded_seq
+
+
 # Get reference result
 def get_ref(genome_list: list):
     ref_list = []
