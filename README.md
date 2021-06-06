@@ -3,8 +3,8 @@ Project of **BI371** in Shanghai Jiao Tong University, a short read assigning me
 
 ## Contents
 
-- [Dependent Packages](#Dependent Packages)
-- [K-mers Model](#K-mers Model)
+- [Dependent Packages](#Dependent-Packages)
+- [K-mers Model](#K-mers-Model)
 - [KMM](#KMM)
 - [GPU](#GPU)
 
