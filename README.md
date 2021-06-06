@@ -7,4 +7,8 @@ Usage: `python kmer.py`.
 ## KMM
 Usage: `python kmm.py`.
 
-We will add some command line parameter and optimize the API of our program. 
+## GPU
+
+
+
+Users can change the file paths in main function in `kmm.py` and `kmer.py`. And we will add some command line parameter and optimize the API of our program. 
