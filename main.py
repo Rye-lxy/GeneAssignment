@@ -70,11 +70,11 @@ def encoder(sequence: str):
     for char in sequence:
         if char == 'A' or char == 'a':
             coded_seq += '0'
-        elif char == 'T' or char == 't':
+        elif char == 'G' or char == 'g':
             coded_seq += '1'
         elif char == 'C' or char == 'c':
             coded_seq += '2'
-        elif char == 'G' or char == 'g':
+        elif char == 'T' or char == 't':
             coded_seq += '3'
         else:
             continue
