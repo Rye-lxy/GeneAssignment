@@ -1,6 +1,11 @@
 # GeneAssignment
 Project of **BI371** in Shanghai Jiao Tong University, a short read assigning method without comparison.
 
+## Dependent Packages
+* `numpy`
+* `Bio`
+* `numba`
+
 ## K-mers Model
 Usage: `python kmer.py`.
 
