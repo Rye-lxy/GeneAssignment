@@ -20,6 +20,13 @@ Usage: `python kmer.py`.
 Usage: `python kmm.py`.
 
 ## GPU
+Make sure your NVIDIA GPU support CUDA in advance.
+Set up the environment locally:
+```
+conda install numba
+conda install cudatoolkit
+```
+CUDA Toolkit can also be downloaded from the website(https://developer.nvidia.com/cuda-toolkit)
 
-
+ 
 
